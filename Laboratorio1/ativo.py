@@ -2,7 +2,7 @@
 
 import socket
 
-HOST = '10.11.0.11' # maquina onde esta o par passivo
+HOST = '' # maquina onde esta o par passivo
 PORTA = 10000        # porta que o par passivo esta escutando
 
 # cria socket
@@ -27,4 +27,3 @@ while True:
 
 # encerra a conexao
 sock.close() 
-#10.11.0.9
