@@ -119,17 +119,22 @@ def ui():
             #Se já tiver o chapéu, ou ao obtê-lo, marca que está executando uma escrita e a inicia
             else:
                 isWriting = True
-            newValue = input("Digite o novo valor da variável replicada\n")
-            newValue = int(newValue)
-            primaryCopy.exposed_setTargetLocal(primaryCopy, newValue)
-            for k in range (4):
-                testID = k + 1
-                if testID != appID:
-                    conn = rpyc.connect('localhost', PORT_NUMBER_BASE + testID)
-                    conn.root.exposed_setTargetGlobal(appID, copyTarget)
-                    conn.close()
+            print("Alterando o valor da variável. Digite qualquer coisa exceto um inteiro para terminar\n")
+            while True:
+                newValue = input("Digite o novo valor da variável replicada\n")
+                try:
+                    newValue = int(newValue)
+                except:
+                    for k in range (4):
+                        testID = k + 1
+                        if testID != appID:
+                            conn = rpyc.connect('localhost', PORT_NUMBER_BASE + testID)
+                            conn.root.exposed_setTargetGlobal(appID, copyTarget)
+                            conn.close()
+                    break
+                primaryCopy.exposed_setTargetLocal(primaryCopy, newValue)
+                print("\n")
             isWriting = False
-            print("\n")
         
         #Fecha a aplicação
         elif choice == "fim":
